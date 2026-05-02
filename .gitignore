@@ -1,0 +1,12 @@
+# API Keys
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Node (future use)
+node_modules/
