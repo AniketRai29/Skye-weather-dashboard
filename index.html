@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Skye — Weather Dashboard</title>
+  <meta name="description" content="Skye Weather Dashboard — Live weather intelligence for any city worldwide." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌤</text></svg>" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="noise-overlay"></div>
+
+  <div class="app-container">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">Skye</span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span class="toggle-track">
+          <span class="toggle-thumb"></span>
+          <span class="toggle-icon sun">☀</span>
+          <span class="toggle-icon moon">◑</span>
+        </span>
+      </button>
+    </header>
+
+    <!-- Hero Search -->
+    <section class="hero">
+      <p class="hero-label">LIVE WEATHER INTELLIGENCE</p>
+      <h1 class="hero-title">Where are<br /><em>you headed?</em></h1>
+
+      <div class="search-wrapper">
+        <div class="search-box" id="searchBox">
+          <span class="search-icon">⌕</span>
+          <input
+            type="text"
+            id="cityInput"
+            placeholder="Enter city name..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="loc-btn" id="locBtn" title="Use my location" aria-label="Use my location">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <line x1="12" y1="2" x2="12" y2="6"/>
+              <line x1="12" y1="18" x2="12" y2="22"/>
+              <line x1="2" y1="12" x2="6" y2="12"/>
+              <line x1="18" y1="12" x2="22" y2="12"/>
+            </svg>
+          </button>
+          <button class="search-btn" id="searchBtn">
+            <span>Search</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+        <div class="error-msg" id="errorMsg">
+          <span class="error-icon">⚠</span>
+          <span id="errorText">City not found. Please try again.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weather Card -->
+    <section class="weather-section" id="weatherSection">
+      <div class="weather-card" id="weatherCard">
+
+        <!-- Card Top -->
+        <div class="card-top">
+          <div class="location-block">
+            <div class="location-pin">◎</div>
+            <div>
+              <h2 class="city-name" id="cityName">—</h2>
+              <p class="country-name" id="countryName">—</p>
+            </div>
+          </div>
+          <div class="date-block">
+            <p class="date-text" id="dateText">—</p>
+            <p class="time-text" id="timeText">—</p>
+          </div>
+        </div>
+
+        <!-- Main Temp -->
+        <div class="temp-block">
+          <img class="weather-icon-img" id="weatherIconImg" src="" alt="weather icon" />
+          <div class="temp-main">
+            <span class="temp-value" id="tempValue">—</span>
+            <div class="temp-meta">
+              <span class="temp-unit">°C</span>
+              <span class="feels-like" id="feelsLike">feels like —°</span>
+            </div>
+          </div>
+          <p class="condition-text" id="conditionText">—</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card" id="stat-humidity">
+            <div class="stat-icon">💧</div>
+            <div class="stat-info">
+              <span class="stat-value" id="humidity">—</span>
+              <span class="stat-label">Humidity</span>
+            </div>
+            <div class="stat-bar-wrap">
+              <div class="stat-bar" id="humidityBar"></div>
+            </div>
+          </div>
+
+          <div class="stat-card" id="stat-wind">
+            <div class="stat-icon">🌬</div>
+            <div class="stat-info">
+              <span class="stat-value" id="windSpeed">—</span>
+              <span class="stat-label">Wind Speed</span>
+            </div>
+            <div class="wind-compass" id="windCompass">
+              <div class="compass-arrow" id="compassArrow"></div>
+            </div>
+          </div>
+
+          <div class="stat-card" id="stat-visibility">
+            <div class="stat-icon">👁</div>
+            <div class="stat-info">
+              <span class="stat-value" id="visibility">—</span>
+              <span class="stat-label">Visibility</span>
+            </div>
+          </div>
+
+          <div class="stat-card" id="stat-pressure">
+            <div class="stat-icon">🔵</div>
+            <div class="stat-info">
+              <span class="stat-value" id="pressure">—</span>
+              <span class="stat-label">Pressure</span>
+            </div>
+          </div>
+
+          <div class="stat-card wide" id="stat-sun">
+            <div class="sun-row">
+              <div class="sun-item">
+                <span class="sun-icon">🌅</span>
+                <div>
+                  <span class="stat-value" id="sunrise">—</span>
+                  <span class="stat-label">Sunrise</span>
+                </div>
+              </div>
+              <div class="sun-divider"></div>
+              <div class="sun-item">
+                <span class="sun-icon">🌇</span>
+                <div>
+                  <span class="stat-value" id="sunset">—</span>
+                  <span class="stat-label">Sunset</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card" id="stat-cloud">
+            <div class="stat-icon">☁</div>
+            <div class="stat-info">
+              <span class="stat-value" id="cloudiness">—</span>
+              <span class="stat-label">Cloud Cover</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="card-footer">
+          <span>Powered by OpenWeatherMap</span>
+          <span id="lastUpdated">—</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Skeleton Loader -->
+    <div class="skeleton-card" id="skeletonCard">
+      <div class="skeleton-line sk-top"></div>
+      <div class="skeleton-line sk-sub"></div>
+      <div class="skeleton-line sk-temp"></div>
+      <div class="skeleton-line sk-cond"></div>
+      <div class="sk-grid">
+        <div class="skeleton-line sk-card"></div>
+        <div class="skeleton-line sk-card"></div>
+        <div class="skeleton-line sk-card"></div>
+        <div class="skeleton-line sk-card wide"></div>
+        <div class="skeleton-line sk-card"></div>
+      </div>
+    </div>
+
+    <!-- Loading -->
+    <div class="loader" id="loader">
+      <div class="loader-ring"></div>
+      <p>Fetching weather data...</p>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
