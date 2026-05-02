@@ -13,7 +13,7 @@
 // 🔑 IMPORTANT: Never commit a real API key to a public repo.
 // For production, use a backend proxy or environment variable (e.g. Netlify Functions).
 // Get a free key at: https://openweathermap.org/api
-const API_KEY = 'YOUR_API_KEY';
+const API_KEY = 'YOUR_API_KEY_HERE';
 
 const GEO_URL     = 'https://api.openweathermap.org/geo/1.0/direct';
 const WEATHER_URL = 'https://api.openweathermap.org/data/2.5/weather';
